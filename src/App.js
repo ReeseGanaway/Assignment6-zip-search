@@ -11,36 +11,40 @@ import zipInfoDisplay from "./components/ZipInfoDisplay";
   const [zipCode, setZipCode]=useState("");
   const [zipList, setZipList]=useState([]);
 
-  const fetchData=async ()=>{
+  /*const fetchData=async ()=>{
     const result = await fetch(`http://ctp-zip-api.herokuapp.com/zip/${zipCode}`);
     const data=await result.json();
     console.log(data);
     return data;
-    }
+    }*/
 
   const checkEntry = (event) => {
-    console.log(zipCode)
+    
     if(event.target.value.length===5){
-      setZipCode(event.target.value);
-      fetchData().then((data)=>{
-        setZipList(data)
+      setZipCode(event.target.value)
+      console.log(zipCode)
+      fetch(`http://ctp-zip-api.herokuapp.com/zip/${zipCode}`).then((response)=>{
+        response.json().then((data)=>{
+          setZipList(data)
         console.log(zipList)
+        })
+        
       })
-      .catch((err)=>console.error(err)) 
-    }
+       
+      }
   }
   return (
     <div className="App">
       <header className="zip-search">Zip Code Search</header>
 
       <input type="text" onChange={checkEntry}></input>
-      <ul>
-        {zipList.map((item,index)=>{
-          return
-            <zipInfoDisplay key={item+index} content={item}/>
-          ;})
-        }
-      </ul>
+      
+      {zipList.map((item) => ( 
+                <ul key = { item.RecordNumber } >
+                    <li>State: {item.State}</li>
+                    <li>Location: {item.Location},</li>
+                    <li>Total Wages: {item.TotalWages}</li>
+                    </ul>))}
     </div>
 
   );
