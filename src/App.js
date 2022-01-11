@@ -1,7 +1,5 @@
-import { Fragment } from "react/cjs/react.production.min";
 import "./App.css";
 import React, {useState} from "react";
-import zipInfoDisplay from "./components/ZipInfoDisplay";
 
 
 
@@ -30,7 +28,7 @@ import zipInfoDisplay from "./components/ZipInfoDisplay";
         })
         
       })
-       
+      .catch((err)=>console.error(err)) 
       }
   }
   return (
