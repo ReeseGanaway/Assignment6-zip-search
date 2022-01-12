@@ -6,22 +6,13 @@ import React, {useState} from "react";
   function App() {
 
 
-  const [zipCode, setZipCode]=useState("");
   const [zipList, setZipList]=useState([]);
 
-  /*const fetchData=async ()=>{
-    const result = await fetch(`http://ctp-zip-api.herokuapp.com/zip/${zipCode}`);
-    const data=await result.json();
-    console.log(data);
-    return data;
-    }*/
 
   const checkEntry = (event) => {
     
-    if(event.target.value.length===5){
-      setZipCode(event.target.value)
-      console.log(zipCode)
-      fetch(`http://ctp-zip-api.herokuapp.com/zip/${zipCode}`).then((response)=>{
+      if(event.target.value.length===5){
+      fetch(`http://ctp-zip-api.herokuapp.com/zip/${event.target.value}`).then((response)=>{
         response.json().then((data)=>{
           setZipList(data)
         console.log(zipList)
@@ -31,18 +22,29 @@ import React, {useState} from "react";
       .catch((err)=>console.error(err)) 
       }
   }
+  
   return (
     <div className="App">
-      <header className="zip-search">Zip Code Search</header>
+      <h1 className="zip-search">Zip Code Search</h1>
+
+      <div id="InputDiv">
 
       <input type="text" onChange={checkEntry}></input>
       
+      </div>
+      
+      <div id="ListContainer">
       {zipList.map((item) => ( 
-                <ul key = { item.RecordNumber } >
+        
+                <ul id="ZipListEntry" key = { item.RecordNumber } >
+                  <header>{item.City},{item.State}</header>
                     <li>State: {item.State}</li>
-                    <li>Location: {item.Location},</li>
+                    <li>Location: ({item.Lat},{item.Long})</li>
+                    <li>Population (estimated): {item.EstimatedPopulation}</li>
                     <li>Total Wages: {item.TotalWages}</li>
+
                     </ul>))}
+                    </div>
     </div>
 
   );

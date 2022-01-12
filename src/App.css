@@ -34,3 +34,28 @@
     transform: rotate(360deg);
   }
 }
+
+.zip-search {
+  padding: 20px;
+  background-color: rgba(35, 34, 37, 0.89);
+  color: white;
+}
+
+#InputDiv {
+  padding-bottom: 10px;
+}
+
+#ZipListEntry {
+  display: inline-flexbox;
+  list-style-position: inside;
+  position: relative;
+  right: 50%;
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+#ListContainer {
+  float: left;
+  position: relative;
+  left: 50%;
+}
